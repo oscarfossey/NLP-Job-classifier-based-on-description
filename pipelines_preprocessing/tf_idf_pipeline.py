@@ -1,9 +1,10 @@
 import os
-os.system("!git lfs install")
-os.system("!git clone https://huggingface.co/oscarfossey/job_classification")
-os.system("!pip install pickle")
-os.system("!pip install spacy")
-os.system("!spacy download fr_core_news_sm")
+os.system("git lfs install")
+os.system("git clone https://huggingface.co/oscarfossey/job_classification")
+os.system("pip install pickle")
+os.system("pip install spacy")
+os.system("spacy download fr_core_news_sm")
+os.system("python -m spacy download fr_core_news_sm")
 
 
 import numpy as np
