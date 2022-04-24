@@ -9,13 +9,14 @@ os.system("python -m spacy download fr_core_news_sm")
 
 import numpy as np
 import nltk
-import spacy
 import pickle
+import fr_core_news_sm
+
 nltk.download('stopwords')
 
 global stopwords, nlp, tf_idf_over, naive_bayes_classifier
 stopwords = nltk.corpus.stopwords.words('french')
-nlp = spacy.load("fr_core_news_sm")
+nlp = fr_core_news_sm.load()
 tf_idf_over = pickle.load(open("/content/job_classification/tf_idf_over", 'rb'))
 naive_bayes_classifier_over = pickle.load(open("/content/job_classification/naive_bayes_classifier_over", 'rb'))
 
