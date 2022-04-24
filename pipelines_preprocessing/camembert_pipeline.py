@@ -24,7 +24,7 @@ from keras.preprocessing.sequence import pad_sequences
 global camembert_tokenizer, MAX_LEN, DEVICE, labels, camembert_model
 camembert_tokenizer = CamembertTokenizer.from_pretrained('camembert-base', do_lower_case=True)
 MAX_LEN = 200
-labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'M']
+labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G','H','I', 'J', 'K', 'L', 'M', 'N']
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 if DEVICE.type != 'cpu':
   print(torch.cuda.get_device_name(DEVICE))
