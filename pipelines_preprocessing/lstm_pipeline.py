@@ -18,12 +18,15 @@ os.system("pip install keras")
 import numpy as np
 import nltk
 import pickle
+from tqdm import tqdm
 from keras.preprocessing.sequence import pad_sequences
 import fr_core_news_sm
 nltk.download('stopwords')
 from joblib import load
 
-global LSTM_tokenizer, stopwords, nlp, lstm_model
+global LSTM_tokenizer, stopwords, nlp, lstm_model, MAX_SEQUENCE_LENGTH, labels
+labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G','H','I', 'J', 'K', 'L', 'M', 'N']
+MAX_SEQUENCE_LENGTH=250
 lstm_model = load(open("/content/job_classification/model_LSTM.joblib", 'rb')) 
 stopwords = nltk.corpus.stopwords.words('french')
 LSTM_tokenizer = pickle.load(open("/content/job_classification/LSTM_tokenizer", 'rb'))
@@ -42,10 +45,8 @@ def preprocessing_LSTM(texts_array):
       string = ' '.join(words)
       return string
 
-    def tokenization_LSTM(new_offer):
-
-      MAX_SEQUENCE_LENGTH=250
-      seq = LSTM_tokenizer.texts_to_sequences([preprocess(new_offer)])
+    def tokenization_LSTM(text):
+      seq = LSTM_tokenizer.texts_to_sequences([preprocess(text)])
       padded = pad_sequences(seq, maxlen = MAX_SEQUENCE_LENGTH)
       
       return (padded)
@@ -59,8 +60,8 @@ def predict_LSTM(texts_array):
   
   init_shape  = texts_array.shape
 
-  predictions = np.array([lstm_model.predict(token_input)  for token_input in list(preprocessing_LSTM(texts_array.flatten()))])
-  labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G','H','I', 'J', 'K', 'L', 'M', 'N']
+  predictions = np.array([lstm_model.predict(token_input)  for token_input in tqdm(list(preprocessing_LSTM(texts_array.flatten())))])
+
   predictions = np.array([labels[np.argmax(pred)] for pred in predictions])
   
   return predictions.reshape(init_shape)
