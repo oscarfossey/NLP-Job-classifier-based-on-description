@@ -11,22 +11,23 @@ os.system("git clone https://huggingface.co/oscarfossey/job_classification")
 os.system("pip install pickle")
 os.system("pip install spacy")
 os.system("spacy download fr_core_news_sm")
+os.system("python -m spacy download fr_core_news_sm")
 os.system("pip install joblib")
 os.system("pip install keras")
 
 import numpy as np
 import nltk
-import spacy
 import pickle
 from keras.preprocessing.sequence import pad_sequences
+import fr_core_news_sm
 nltk.download('stopwords')
 from joblib import load
 
 global LSTM_tokenizer, stopwords, nlp, lstm_model
 lstm_model = load(open("/content/job_classification/model_LSTM.joblib", 'rb')) 
 stopwords = nltk.corpus.stopwords.words('french')
-nlp = spacy.load("fr_core_news_sm")
 LSTM_tokenizer = pickle.load(open("/content/job_classification/LSTM_tokenizer", 'rb'))
+nlp = fr_core_news_sm.load()
 
 def preprocessing_LSTM(texts_array):
     """preprocessing the strings through the array to predict using the predict_tfidf function
