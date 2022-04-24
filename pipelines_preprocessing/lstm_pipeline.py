@@ -60,7 +60,7 @@ def predict_LSTM(texts_array):
   init_shape  = texts_array.shape
 
   predictions = np.array([lstm_model.predict(token_input)  for token_input in list(preprocessing_LSTM(texts_array.flatten()))])
-  labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'M']
+  labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G','H','I', 'J', 'K', 'L', 'M', 'N']
   predictions = np.array([labels[np.argmax(pred)] for pred in predictions])
   
   return predictions.reshape(init_shape)
